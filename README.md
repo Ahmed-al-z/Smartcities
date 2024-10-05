@@ -7,11 +7,17 @@ Ces projets seront réalisés à l'aide d'un kit de base Grove, en utilisant un 
 # Répertoires
 
 - [GPIO](https://github.com/Ahmed-al-z/Smartcities/tree/main/GPIO)
+LED simple, bouton-poussoir, interruption.
 - [AD-PWM](https://github.com/Ahmed-al-z/Smartcities/tree/main/AD-PWM)
+lecture du potentiomètre, PWM (LED, musique, servo).
 - [LCD](https://github.com/Ahmed-al-z/Smartcities/tree/main/LCD)
+documentation des fonctions de la librairie, affichage de la valeur du potentiomètre.
 - [LED_neo](https://github.com/Ahmed-al-z/Smartcities/tree/main/LED_neo)
+utilisation des LEDs néopixel, documentation des fonctions de la librairie, arc-en-ciel.
 - [sensors](https://github.com/Ahmed-al-z/Smartcities/tree/main/sensors)
+température et humidité, luminosité, PIR.
 - [network](https://github.com/Ahmed-al-z/Smartcities/tree/main/network)
+Accès réseau avec le RPi Pico.
 
 # RaspberryPi Pico W
 
