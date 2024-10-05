@@ -1,20 +1,27 @@
 # Smartcities
 # Contexte
-Dans le cadre du cours de SmartCities & IoT, je dois réaliser différents petits projets qui ont pour objectif de me faire apprendre la programation embarqué en MicroPython. Chaque projet se focalise sur un aspect bien précis, que ce soit l'emploi de méthodes de programmations différentes ou bien l'utilisation de divers composant tel que des moteurs, des buzzers, des potentiomètre, etc.
 
-Les différents projet seront réalisé grâce à un kit de base Grove avec un Raspberry Pico W.
+Dans le cadre du cours SmartCities, je suis chargé de réaliser plusieurs projets visant à m'initier à la programmation embarquée en MicroPython.
+Ces projets seront réalisés à l'aide d'un kit de base Grove, en utilisant un Raspberry Pi Pico W comme plateforme principale.
 
 # Répertoires
+
 GPIO
+
 AD-PWM
+
 LCD
+
 LED-neo
+
 Network
+
 Sensors
 
-# Raspberry Pico W
+# RaspberryPi Pico W
 
-Les Rapsberry Pico sont des micro-contrôleurs performant, ultra-léger et ultra-petit, ce qui en fait une solution idéal pour des projets de systèmes embarqués. Les Raspberry Pico embarque avec eux une multitude de pins et de connectivités différentes, les rendants très versatiles. La spécificité du Raspberry Pico W est la présence d'une carte réseau ajoutant la dimension du réseau (WiFi ou Bluetooth) à la programmation sur micro-contrôleur.
+Le Raspberry Pi Pico W est une version améliorée du Raspberry Pi Pico, équipée d'une connectivité sans fil Wi-Fi et Bluetooth. Tout comme le Pico standard, il est basé sur le microcontrôleur RP2040, avec deux cœurs ARM Cortex-M0+, 264 Ko de RAM et plusieurs interfaces UART, SPI, I2C, etc... Le Pico W est idéal pour les projets IoT nécessitant une connexion réseau, tout en conservant la même simplicité de programmation avec MicroPython ou C/C++.
+
 
 Pinout
 ![Capture d'écran 2024-10-05 195229](https://github.com/user-attachments/assets/2a0d8cce-9a46-4b00-b57e-4c0b9782aa5a)
@@ -22,18 +29,14 @@ Pinout
 
 # MicroPython
 
-Il s'agit d'une implémentation du language de programmation Python3 incluant une partie des librairie standard du Python et qui est optimisé pour fonctionner sur des micro-contrôleur.
+MicroPython est une implémentation réduite du langage Python, spécialement conçue pour les microcontrôleurs et les systèmes embarqués. Il permet d'exécuter du code Python sur des appareils disposant de ressources limitées, comme les ESP32, Pyboard etc... MicroPython offre une grande flexibilité pour programmer directement en Python, en prenant en charge la plupart des bibliothèques standards du langage tout en restant léger. Il est idéal pour les projets d'IoT, la robotique et les systèmes embarqués.
 
-MicroPython fournit un ensemble de modules spécifique au MicroPython pour faciliter l'utilisation des fonctionnalités et des périphériques comme les GPIOs, Timers, ADC, DAC, PWM, SPI, I²C, CAN, Bluetooth, et l'USB.
+# IDE
 
-Dans le cadre de ce cours, je vais travailler sur un Raspberry Pico mais d'autres micro-contrôleur peuvent fonctionner avec le MicroPython. Les series ESP32 et ESP82 ainsi que les Arduino UNO peuvent être programmé en dans ce language.
+![téléchargement](https://github.com/user-attachments/assets/03055c78-8723-43f6-add2-5812baa0aed8)
 
-# Visual Studio Code
-image
+Thonny est un environnement de développement intégré (IDE) conçu spécialement pour apprendre Python. Il se distingue par son interface intuitive.
 
-Visual Studio Code est un IDE léger qui permet de programmer dans presque tous les languages de programmation existant. Grâce à sa communauté pro-active, VSCode peut se targer d'avoir l'une des plus grande bibliotèque d'extensions, le rendant ultra-modulable au besoin de chaque programmeur.
+![téléchargement](https://github.com/user-attachments/assets/301c3aa0-1f83-4012-a891-c3d70a85288b)
 
-MicroPico
-MicroPico Visual Studio Code Extension est un extension de Visual Studio Code conçue par https://github.com/paulober afin de simplifier et accélérer la développement des projets MicroPython sur Raspberry Pi Pico et Pico W.
-
-Cette extension ajoute le highlighting, auto-completion, code snippets, une intégration au terminal pour communiquer avec le Raspberry.
+Visual Studio Code est un IDE qui permet de programmer dans plusieurs langages de programmation. J'ai commencé ma migration vers VS Code dans le but de centraliser mon travail sur un seul IDE.
