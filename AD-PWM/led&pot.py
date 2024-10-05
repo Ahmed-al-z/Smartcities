@@ -6,7 +6,7 @@ pot = ADC(0)
 
 while True:
     print (pot.read_u16())
-    if pot.read_u16() > 30000:
+    if pot.read_u16() > 30000 and pot.read_u16() < 50000:
         led.value(1)
         sleep(1)
     else:
