@@ -6,17 +6,12 @@ Ces projets seront réalisés à l'aide d'un kit de base Grove, en utilisant un 
 
 # Répertoires
 
-GPIO
-
-AD-PWM
-
-LCD
-
-LED-neo
-
-Network
-
-Sensors
+- [GPIO](https://github.com/Ahmed-al-z/Smartcities/blob/main/GPIO)
+- [AD-PWM](https://github.com/Ahmed-al-z/Smartcities/blob/main/AD-PWM)
+- [LCD](https://github.com/Ahmed-al-z/Smartcities/blob/main/LCD)
+- [LED_neo](https://github.com/Ahmed-al-z/Smartcities/blob/main/LED_neo)
+- [sensors](https://github.com/Ahmed-al-z/Smartcities/blob/main/sensors)
+- [network](https://github.com/Ahmed-al-z/Smartcities/blob/main/network)
 
 # RaspberryPi Pico W
 
