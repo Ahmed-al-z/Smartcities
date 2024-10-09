@@ -28,7 +28,7 @@ def temp_pot(adc_valeur):
     #convertion [y= min_y + ( x − min_x /max_x − min_x) × (max_y−min_y)]
     return min_temp + (adc_valeur/65535) * (max_temp - min_temp)
 
-def affiche_lcd (  temp_ambiante,temp_set, alarme = False): #on met entre parenthese les parametres
+def affiche_lcd (temp_ambiante,temp_set, alarme = False): #on met entre parenthese les parametres
     affiche.clear()
     affiche.setCursor(0,0)
     affiche.print("set: {:.1f} C".format(temp_set) )
