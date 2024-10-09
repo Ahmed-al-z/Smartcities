@@ -47,7 +47,8 @@ def buzzer_on (frequence):
 def buzzer_off ():
     buzzer.duty_u16(0)
 
-while True:
+while True: #la dif entre while True et while c'est que la 1er boucle a l'infini sauf si on l'arrete nous, 
+            #et l'autre boucle tant que la condition est vrai exemple : while x > 5 et elle stop la boucle sans notre intervention
     #lire l'adc du pot
     adc_valeur = pot.read_u16()
     temp_set = temp_pot(adc_valeur)
@@ -59,7 +60,7 @@ while True:
     except OSError as e:    #ici on a l'exception d'erreur de notre try qui est stocké dans la variable "e" (on peut utiliser "e" pour debouger etc)
         temp_ambiante = None
 
-        
+
     #comparaison et gestion de type d'alarme
    
     if temp_ambiante is not None :
