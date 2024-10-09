@@ -57,18 +57,18 @@ while True:
         capdht.measure()
         temp_ambiante = capdht.temperature()
     except OSError as e:
-        temp_dht = None
+        temp_ambiante = None
     #comparaison et gestion de type d'alarme
    
-     if temp_dht is not None :
+    if temp_ambiante is not None :
 
-        if temp_dht > temp_set :
+        if temp_ambiante > temp_set :
             led.toggle()
             sleep (1)
             buzzer_off()
             affiche_lcd(temp_ambiante,temp_set)
 
-        elif temp_dht > temp_set + 3 : 
+        elif temp_ambiante > temp_set + 3 : 
             buzzer_on(1000)
             led.toggle()
             sleep(0.5)
