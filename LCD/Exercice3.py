@@ -23,7 +23,7 @@ I2CC = I2C (1,scl=Pin(7), sda=Pin(6), freq=400000)
 affiche=LCD1602(I2CC,2,16)
 
 def temp_pot(adc_valeur):
-    min_temp= 15
+    min_temp= 0
     max_temp=35
     #convertion [y= min_y + ( x − min_x /max_x − min_x) × (max_y−min_y)]
     return min_temp + (adc_valeur/65535) * (max_temp - min_temp)
@@ -44,7 +44,7 @@ def affiche_lcd (temp_ambiante,temp_set, alarme = False): #on met entre parenthe
 
 def buzzer_on (frequence):
     buzzer.freq(frequence)
-    buzzer.duty_u16(20000)
+    buzzer.duty_u16(1000)
 
 def buzzer_off ():
     buzzer.duty_u16(0)
@@ -68,17 +68,21 @@ while True: #la dif entre while True et while c'est que la 1er boucle a l'infini
    
     if temp_ambiante is not None :
 
-        if temp_ambiante > temp_set :
+        if  temp_ambiante > temp_set + 3 : 
+            buzzer_on(100)
+            #led.toggle()
+            led.value(1)
+            sleep(0.1)
+            led.value(0)
+            sleep(0.1)
+            affiche_lcd(temp_set,temp_ambiante,alarme = True)
+        
+
+        elif temp_ambiante > temp_set :
             led.toggle()
-            sleep (1)
+            sleep (2)
             buzzer_off()
             affiche_lcd(temp_ambiante,temp_set)
-
-        elif temp_ambiante > temp_set + 3 : 
-            buzzer_on(1000)
-            led.toggle()
-            sleep(0.5)
-            affiche_lcd(temp_set,temp_ambiante,alarme = True)
 
         else:
             buzzer_off()
@@ -88,4 +92,4 @@ while True: #la dif entre while True et while c'est que la 1er boucle a l'infini
         affiche.clear()
         affiche.print("erreur dht11")
         print(str(capdht.readTempHumid))
-sleep(1)
+sleep(0.5)
