@@ -15,8 +15,8 @@ from utime import sleep
 #definir les IO
 capdht = DHT(18)
 pot = ADC(0)
-buzzer = PWM(Pin(18))
-led = machine.Pin(16,machine.Pin.OUT)
+buzzer = PWM(Pin(27))
+led = machine.Pin(18,machine.Pin.OUT)
 
 #config I2C
 I2CC = I2C (1,scl=Pin(7), sda=Pin(6), freq=400000)
@@ -60,6 +60,7 @@ while True: #la dif entre while True et while c'est que la 1er boucle a l'infini
         capdht.readTempHumid()
         temp_ambiante = capdht.readTemperature()
         print(str(capdht.readTempHumid))
+        print(str(temp_ambiante))
     except OSError as e:    #ici on a l'exception d'erreur de notre try qui est stocké dans la variable "e" (on peut utiliser "e" pour debouger etc)
         temp_ambiante = None
 
