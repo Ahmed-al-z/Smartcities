@@ -16,14 +16,14 @@ from utime import sleep
 capdht = DHT(18)
 pot = ADC(0)
 buzzer = PWM(Pin(27))
-led = machine.Pin(18,machine.Pin.OUT)
+led = machine.Pin(16,machine.Pin.OUT)
 
 #config I2C
 I2CC = I2C (1,scl=Pin(7), sda=Pin(6), freq=400000)
 affiche=LCD1602(I2CC,2,16)
 
 def temp_pot(adc_valeur):
-    min_temp= 0
+    min_temp= 15
     max_temp=35
     #convertion [y= min_y + ( x − min_x /max_x − min_x) × (max_y−min_y)]
     return min_temp + (adc_valeur/65535) * (max_temp - min_temp)
@@ -59,8 +59,7 @@ while True: #la dif entre while True et while c'est que la 1er boucle a l'infini
     try:  #on utilise Try pour ajouter une partie de code qui pourra avoir des erreurs comme le dht par exemple et on ajoute la lecture apres le try
         capdht.readTempHumid()
         temp_ambiante = capdht.readTemperature()
-        print(str(capdht.readTempHumid))
-        print(str(temp_ambiante))
+    
     except OSError as e:    #ici on a l'exception d'erreur de notre try qui est stocké dans la variable "e" (on peut utiliser "e" pour debouger etc)
         temp_ambiante = None
 
