@@ -55,8 +55,8 @@ while True: #la dif entre while True et while c'est que la 1er boucle a l'infini
 
     #lire le dht11
     try:  #on utilise Try pour ajouter une partie de code qui pourra avoir des erreurs comme le dht par exemple et on ajoute la lecture apres le try
-        capdht.measure()
-        temp_ambiante = capdht.temperature()
+        capdht.readTempHumid()
+        temp_ambiante = capdht.readTemperature()
     except OSError as e:    #ici on a l'exception d'erreur de notre try qui est stocké dans la variable "e" (on peut utiliser "e" pour debouger etc)
         temp_ambiante = None
 
