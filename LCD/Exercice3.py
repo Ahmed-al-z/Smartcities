@@ -53,11 +53,13 @@ while True:
     temp_set = temp_pot(adc_valeur)
 
     #lire le dht11
-    try:
+    try:  #on utilise Try pour ajouter une partie de code qui pourra avoir des erreurs comme le dht par exemple et on ajoute la lecture apres le try
         capdht.measure()
         temp_ambiante = capdht.temperature()
-    except OSError as e:
+    except OSError as e:    #ici on a l'exception d'erreur de notre try qui est stocké dans la variable "e" (on peut utiliser "e" pour debouger etc)
         temp_ambiante = None
+
+        
     #comparaison et gestion de type d'alarme
    
     if temp_ambiante is not None :
