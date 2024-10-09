@@ -15,7 +15,7 @@ from utime import sleep
 #definir les IO
 capdht = DHT(18)
 pot = ADC(0)
-buzzer = PWM(Pin(16))
+buzzer = PWM(Pin(18))
 led = machine.Pin(16,machine.Pin.OUT)
 
 #config I2C
