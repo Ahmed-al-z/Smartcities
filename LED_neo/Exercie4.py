@@ -34,20 +34,33 @@ et on va utiliser la fonction utime_ticks_ms qui sert a compter le temps depuis
 la mise sous tension du RPI.
 '''
 
-seuil= 30000 # seuille a partir du quelle on detecte un pic de son
+seuil= 15000 # entre 8K-10K en silence 12K pour claquement de doight
 previous = 0
 debounce = 300
+
+'''pour regler le probleme du capteur analogique je vais faire la moyenne 
+des data audio'''
+audio_val= []
+audio_size = 10
+
+def moyenne_audio (valeur):
+    return sum(valeur) / len(valeur) # len : longeur
+
 
 
 while True:
     audio = ss.read_u16() #for the rgb range
-    print(audio)
-    #sleep(0.3)
-    if audio > seuil and (utime.ticks_ms() - previous )> debounce :
+    audio_val.append(audio)
+    if len(audio_val) > audio_size:
+        audio_val.pop(0) # on retire la plus ancienne valeur enregister
+    
+    audio_final= moyenne_audio(audio_val)
+    print(audio_final)
+
+    if audio_final > seuil and (utime.ticks_ms() - previous )> debounce :
         
         rancol = random.choice(colors)
         led.pixels_fill(rancol)
         led.pixels_show()
         
         previous = utime.ticks_ms()
-    sleep(0.2)
