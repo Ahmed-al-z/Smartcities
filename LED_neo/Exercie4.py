@@ -15,15 +15,76 @@ led = WS2812(18,1) # (pin,count)
 ss = ADC(1) #sound sensor
 
 #black = (0,0,0)
-red = (255,0,0)
-yellow = (255,150,0)
-green = (0,255,0)
-cyan = (0,255,255)
-blue = (0,0,255)
-purple = (180,0,255)
-white = (255,255,255)
+orange = (255, 69, 0)       # Orange vif
+pink = (255, 105, 180)      # Rose vif
+lime = (50, 205, 50)        # Vert lime
+turquoise = (64, 224, 208)  # Turquoise
+indigo = (75, 0, 130)       # Indigo
+violet = (238, 130, 238)    # Violet
+gold = (255, 215, 0)        # Or
+magenta = (255, 0, 255)     # Magenta
+silver = (192, 192, 192)    # Argent
+brown = (139, 69, 19)       # Brun
+navy = (0, 0, 128)          # Bleu marine
+teal = (0, 128, 128)        # Sarcelle (bleu-vert)
+olive = (128, 128, 0)       # Olive
+maroon = (128, 0, 0)        # Marron
+light_blue = (173, 216, 230)  # Bleu clair
+dark_blue = (0, 0, 139)       # Bleu foncé
+light_green = (144, 238, 144) # Vert clair
+dark_green = (0, 100, 0)      # Vert foncé
+light_pink = (255, 182, 193)  # Rose clair
+dark_red = (139, 0, 0)        # Rouge foncé
+peach = (255, 218, 185)       # Pêche
+salmon = (250, 128, 114)      # Saumon
+khaki = (240, 230, 140)       # Kaki
+coral = (255, 127, 80)        # Corail
+orchid = (218, 112, 214)      # Orchidée
+plum = (221, 160, 221)        # Prune
+sky_blue = (135, 206, 235)    # Bleu ciel
+mint = (189, 252, 201)        # Menthe
+lavender = (230, 230, 250)    # Lavande
+goldenrod = (218, 165, 32)    # Jaune doré
+hot_pink = (255, 105, 180)    # Rose vif
+crimson = (220, 20, 60)       # Carmin
 
-colors=(red,yellow,green,cyan,blue,purple,white)
+
+
+colors= colors = (
+    orange,      # Orange vif
+    pink,        # Rose vif
+    lime,        # Vert lime
+    turquoise,   # Turquoise
+    indigo,      # Indigo
+    violet,      # Violet
+    gold,        # Or
+    magenta,     # Magenta
+    silver,      # Argent
+    brown,       # Brun
+    navy,        # Bleu marine
+    teal,        # Sarcelle (bleu-vert)
+    olive,       # Olive
+    maroon,      # Marron
+    light_blue,  # Bleu clair
+    dark_blue,   # Bleu foncé
+    light_green, # Vert clair
+    dark_green,  # Vert foncé
+    light_pink,  # Rose clair
+    dark_red,    # Rouge foncé
+    peach,       # Pêche
+    salmon,      # Saumon
+    khaki,       # Kaki
+    coral,       # Corail
+    orchid,      # Orchidée
+    plum,        # Prune
+    sky_blue,    # Bleu ciel
+    mint,        # Menthe
+    lavender,    # Lavande
+    goldenrod,   # Jaune doré
+    hot_pink,    # Rose vif
+    crimson      # Carmin
+)
+
 
 
 '''
@@ -34,7 +95,7 @@ et on va utiliser la fonction utime_ticks_ms qui sert a compter le temps depuis
 la mise sous tension du RPI.
 '''
 
-seuil= 15000 # entre 8K-10K en silence 12K pour claquement de doight
+seuil= 12000 # entre 8K-10K en silence 12K pour claquement de doight
 previous = 0
 debounce = 300
 
