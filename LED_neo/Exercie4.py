@@ -50,7 +50,7 @@ crimson = (220, 20, 60)       # Carmin
 
 
 
-colors= colors = (
+colors = (
     orange,      # Orange vif
     pink,        # Rose vif
     lime,        # Vert lime
