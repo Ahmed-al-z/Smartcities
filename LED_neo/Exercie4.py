@@ -41,9 +41,9 @@ debounce = 300
 while True:
     audio = ss.read_u16()/256 #for the rgb range 
     print(audio) 
-    
+    sleep(0.3)
     if audio > seuil  :
         rancol = random.choice(colors)
         led.pixels_fill(rancol)
         led.pixels_show()
-    sleep(0.2)
+        sleep(0.2)
