@@ -7,13 +7,14 @@
 import machine
 from ws2812 import WS2812
 from machine import Pin,ADC
-from time import sleep
+import utime
+from utime import sleep
 import random
 
 led = WS2812(18,1) # (pin,count)
 ss = ADC(1) #sound sensor
 
-black = (0,0,0)
+#black = (0,0,0)
 red = (255,0,0)
 yellow = (255,150,0)
 green = (0,255,0)
@@ -22,7 +23,7 @@ blue = (0,0,255)
 purple = (180,0,255)
 white = (255,255,255)
 
-colors=(black,red,yellow,green,cyan,blue,purple,white)
+colors=(red,yellow,green,cyan,blue,purple,white)
 
 
 '''
@@ -33,17 +34,20 @@ et on va utiliser la fonction utime_ticks_ms qui sert a compter le temps depuis
 la mise sous tension du RPI.
 '''
 
-seuil= 70 # seuille a partir du quelle on detecte un pic de son
+seuil= 30000 # seuille a partir du quelle on detecte un pic de son
 previous = 0
 debounce = 300
 
 
 while True:
-    audio = ss.read_u16()/256 #for the rgb range 
-    print(audio) 
-    sleep(0.3)
-    if audio > seuil  :
+    audio = ss.read_u16() #for the rgb range
+    print(audio)
+    #sleep(0.3)
+    if audio > seuil and (utime.ticks_ms() - previous )> debounce :
+        
         rancol = random.choice(colors)
         led.pixels_fill(rancol)
         led.pixels_show()
-        sleep(0.2)
+        
+        previous = utime.ticks_ms()
+    sleep(0.2)
