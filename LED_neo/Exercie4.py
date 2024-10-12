@@ -1,0 +1,41 @@
+'''
+-je dois lire les datas sonores dans une boucle.                         ok
+-je dois analyer le son pour detecter les battements via un algo.       
+-changer la couleur de la LED aleatoirement a chaque battement.         
+
+'''
+import machine 
+from ws2812 import WS2812
+from machine import Pin,ADC
+from time import sleep
+import random
+
+led = WS2812(18,1) # (pin,count)
+ss = ADC(1) #sound sensor
+
+black = (0,0,0)
+red = (255,0,0)
+yellow = (255,150,0)
+green = (0,255,0)
+cyan = (0,255,255)
+blue = (0,0,255)
+purple = (180,0,255)
+white = (255,255,255)
+
+colors=(black,red,yellow,green,cyan,blue,purple,white)
+
+'''on va mettre une condition qui dit: si le son depasse on change de couleur
+pour ca on aura une variable pour le seuill une pour le debounce et une qui servira
+a mettre a jour le temps.
+et on va utiliser la fonction utime_ticks_ms qui sert a compter le temps depuis
+la mise sous tension du RPI
+'''
+
+seuil= 500 # seuille a partir du quelle on detecte un pic de son
+
+debounce = 300
+
+
+while True:
+    audio = ss.read_u16()/256 #for the rgb range 
+
