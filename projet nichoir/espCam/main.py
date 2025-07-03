@@ -4,14 +4,30 @@ from machine import Pin, deepsleep
 from umqtt.simple import MQTTClient
 import camera
 
+# Configurations des broches
+led_ir = Pin(4, Pin.OUT)
+pir_sensor = Pin(12, Pin.IN)
+
+# Config Wi-Fi et MQTT
+ssid = "ALZ-Home"
+password = "jrmksp5phz3rze47"
+mqtt_server = "192.168.129.19"
+mqtt_topic = "camera/picture"
+ack_topic = "camera/ack"  # Nouveau topic pour l'ACK
+
+# Variables globales
+ACK_RECEIVED = False
+MAX_RETRIES = 3  # Nombre maximal de tentatives d'envoi
+TIMEOUT = 5      # Temps d'attente pour l'ACK (en secondes)
+
 def connect_wifi(ssid, password):
-    wlan = network.WLAN(network.STA_IF) #type client
+    wlan = network.WLAN(network.STA_IF)
     wlan.active(True)
-    print("module wifi activé")
+    print("Module WiFi activé")
     
     wlan.connect(ssid, password)
     
-    timeout = 20  # Timeout de 20 secondes
+    timeout = 20
     while not wlan.isconnected() and timeout > 0:
         print("Connexion en cours...")
         time.sleep(1)
@@ -19,17 +35,14 @@ def connect_wifi(ssid, password):
     if wlan.isconnected():
         print('Connecté au WiFi:', wlan.ifconfig())
     else:
-        raise OSError("Connexion WiFi impossible. Vérifiez le SSID/mot de passe ou la portée.")
+        raise OSError("Connexion WiFi impossible.")
 
 def init_camera():
     try:
         camera.init(0, format=camera.JPEG)
-        camera.framesize(camera.FRAME_VGA)  # Résolution moyenne
-        camera.quality(10)  # Haute qualité
-        camera.brightness(1)  # Augmente légèrement la luminosité
-        camera.contrast(0)  # Aucun ajustement du contraste
-        camera.saturation(0)  # Saturation normale
-        print("Caméra initialisée avec paramètres personnalisés.")
+        camera.framesize(camera.FRAME_VGA)
+        camera.quality(10)
+        print("Caméra initialisée.")
     except Exception as e:
         print("Erreur d'initialisation de la caméra :", e)
         raise
@@ -39,63 +52,69 @@ def take_photo():
         img = camera.capture()
         return img
     except Exception as e:
-        print("Erreur lors de la capture de la photo :", e)
+        print("Erreur lors de la capture :", e)
         return None
 
-def send_photo(client, topic, img):
-    try:
-        if img:
-            client.publish(topic, img)
-            print("Photo envoyée avec succès.")
-        else:
-            print("Aucune photo à envoyer.")
-    except Exception as e:
-        print("Erreur lors de l'envoi de la photo :", e)
+def on_message(topic, msg):
+    global ACK_RECEIVED
+    if topic == ack_topic.encode() and msg == b"ACK":
+        ACK_RECEIVED = True
+        print("ACK reçu du Raspberry Pi.")
 
-# Configurations des broches
-led_ir = Pin(4, Pin.OUT)
-pir_sensor = Pin(12, Pin.IN)
+def send_photo(client, img):
+    global ACK_RECEIVED
+    retries = 0
+    
+    while retries < MAX_RETRIES:
+        try:
+            print(f"Tentative d'envoi {retries + 1}/{MAX_RETRIES}")
+            client.publish(mqtt_topic, img)
+            
+            # Attendre l'ACK
+            start_time = time.time()
+            ACK_RECEIVED = False
+            
+            while not ACK_RECEIVED and (time.time() - start_time) < TIMEOUT:
+                client.check_msg()  # Vérifier les messages entrants
+                time.sleep(0.1)
+            
+            if ACK_RECEIVED:
+                print("Photo envoyée avec succès.")
+                return True
+            else:
+                print("Timeout, aucun ACK reçu.")
+                retries += 1
+                
+        except Exception as e:
+            print(f"Erreur lors de l'envoi : {e}")
+            retries += 1
+    
+    print("Échec après plusieurs tentatives.")
+    return False
 
-# Informations Wi-Fi et MQTT
-'''
-ssid = "WiFi-Home-2C40"
-password = "wp4r2drjrknne"
-'''
-'''ssid = "iPhone de Ahmed"
-password = "ahmed4621"
-'''
-
-ssid = "ALZ-Home"
-password = "jrmksp5phz3rze47"
-
-mqtt_server = "192.168.129.19"
-mqtt_topic = "camera/picture"
-
-# Connexion au WiFi (fait une seule fois)
+# Connexion WiFi
 connect_wifi(ssid, password)
 
-# Connexion au serveur MQTT (fait une seule fois)
-try:
-    client = MQTTClient("ESP32CAM", mqtt_server)
-    client.connect()
-    print("Connecté au serveur MQTT.")
-except Exception as e:
-    print("Erreur lors de la connexion au serveur MQTT :", e)
-    raise
+# Configuration MQTT
+client = MQTTClient("ESP32CAM", mqtt_server)
+client.set_callback(on_message)
+client.connect()
+client.subscribe(ack_topic)
+print("Connecté au serveur MQTT.")
 
-# Initialisation de la caméra (fait une seule fois)
+# Initialisation caméra
 init_camera()
 
-# Boucle principale (vérifie uniquement le mouvement)
+# Boucle principale
 while True:
-    if pir_sensor.value() == 0:  # Mouvement détecté
-        print("Mouvement détecté")
+    if pir_sensor.value() == 0:  # Détection mouvement
+        print("Mouvement détecté !")
         led_ir.on()
         img = take_photo()
-        send_photo(client, mqtt_topic, img)
+        if img:
+            send_photo(client, img)
         led_ir.off()
-        time.sleep(1)  # Pause après chaque photo
+        time.sleep(1)
     else:
-        print("Aucun mouvement détecté.")
-        time.sleep(1)  # Pause avant la prochaine vérification
-
+        print("En attente de mouvement...")
+        time.sleep(1)
