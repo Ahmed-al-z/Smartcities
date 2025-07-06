@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Galerie ESP32-CAM</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: #f0f0f0;
+            text-align: center;
+        }
+        img {
+            max-width: 300px;
+            margin: 10px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>📸 Galerie ESP32-CAM</h1>
+    {% for img in images %}
+        <div>
+            <img src="{{ url_for('image', filename=img) }}" alt="Photo ESP32-CAM">
+            <p>{{ img }}</p>
+        </div>
+    {% endfor %}
+</body>
+</html>
